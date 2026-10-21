@@ -8,11 +8,6 @@ final class ClockModel {
 
     var fuzzy: String { FuzzyTime.phrase(for: now) }
 
-    var exact: String {
-        now.formatted(.dateTime.hour().minute()) + " · "
-            + now.formatted(.dateTime.weekday(.abbreviated).month(.abbreviated).day())
-    }
-
     @ObservationIgnored private var ticker: Task<Void, Never>?
     @ObservationIgnored private var observers: [NSObjectProtocol] = []
 

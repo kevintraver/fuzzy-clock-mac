@@ -2,7 +2,7 @@
 
 A menu bar app that tells the time the way people say it: "Quarter past three", "Nearly noon".
 
-Click it for the exact time and date.
+Click it for the exact time and date, Settings, and Quit. Settings has launch at login, lowercase text, and whether to show the date.
 
 A native Swift port of [fuzzy-clock-rust](https://github.com/fuzzy-mode/fuzzy-clock-rust).
 
@@ -19,4 +19,3 @@ make install   # build, copy to /Applications, and launch
 make test      # run the unit tests
 ```
 
-To start it at login, add it in System Settings → General → Login Items.
