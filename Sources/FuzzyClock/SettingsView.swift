@@ -10,6 +10,7 @@ struct SettingsView: View {
             Toggle("Launch at login", isOn: Binding(get: { launchAtLogin }, set: setLaunchAtLogin))
             Toggle("Lowercase menu bar text", isOn: $preferences.lowercase)
             Toggle("Show date in menu", isOn: $preferences.showDate)
+            Toggle("Show seconds in menu", isOn: $preferences.showSeconds)
         }
         .formStyle(.grouped)
         .scrollDisabled(true)

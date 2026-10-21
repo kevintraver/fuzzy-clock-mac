@@ -11,4 +11,8 @@ final class Preferences {
     var showDate = UserDefaults.standard.object(forKey: "showDate") as? Bool ?? true {
         didSet { UserDefaults.standard.set(showDate, forKey: "showDate") }
     }
+
+    var showSeconds = UserDefaults.standard.bool(forKey: "showSeconds") {
+        didSet { UserDefaults.standard.set(showSeconds, forKey: "showSeconds") }
+    }
 }

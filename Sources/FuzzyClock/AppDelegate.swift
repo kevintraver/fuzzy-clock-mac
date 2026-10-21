@@ -45,10 +45,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             window.title = "Fuzzy Clock Settings"
             window.styleMask = [.titled, .closable]
             window.isReleasedWhenClosed = false
+            window.collectionBehavior = [.moveToActiveSpace, .fullScreenAuxiliary]
             window.center()
             settingsWindow = window
         }
+        // Activation is cooperative and the frontmost app can refuse it, so order the window front regardless
         NSApp.activate()
-        settingsWindow?.makeKeyAndOrderFront(nil)
+        settingsWindow?.orderFrontRegardless()
+        settingsWindow?.makeKey()
     }
 }
