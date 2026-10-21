@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSWindowDelegate {
     private let clock = ClockModel()
     private let preferences = Preferences()
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -47,11 +47,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             window.isReleasedWhenClosed = false
             window.collectionBehavior = [.moveToActiveSpace, .fullScreenAuxiliary]
             window.center()
+            window.delegate = self
             settingsWindow = window
         }
-        // Activation is cooperative and the frontmost app can refuse it, so order the window front regardless
+        // Accessory apps don't reliably get focus, so act as a regular app while settings are open
+        NSApp.setActivationPolicy(.regular)
         NSApp.activate()
+        settingsWindow?.makeKeyAndOrderFront(nil)
         settingsWindow?.orderFrontRegardless()
-        settingsWindow?.makeKey()
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        NSApp.setActivationPolicy(.accessory)
     }
 }
