@@ -1,0 +1,47 @@
+name: FuzzyClock
+options:
+  bundleIdPrefix: com.kevintraver
+  deploymentTarget:
+    macOS: "27.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  FuzzyClock:
+    type: application
+    platform: macOS
+    sources: [Sources/FuzzyClock]
+    info:
+      path: Sources/FuzzyClock/Info.plist
+      properties:
+        CFBundleDisplayName: Fuzzy Clock
+        LSUIElement: true
+    settings:
+      base:
+        PRODUCT_NAME: Fuzzy Clock
+        PRODUCT_BUNDLE_IDENTIFIER: com.kevintraver.FuzzyClock
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+  FuzzyClockTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [Tests/FuzzyClockTests]
+    dependencies:
+      - target: FuzzyClock
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kevintraver.FuzzyClockTests
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Fuzzy Clock.app/Contents/MacOS/Fuzzy Clock"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  FuzzyClock:
+    build:
+      targets:
+        FuzzyClock: all
+    test:
+      targets: [FuzzyClockTests]
